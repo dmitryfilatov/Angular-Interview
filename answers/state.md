@@ -8,7 +8,6 @@
 - Использовать кэширование в помощью RxJs
 - Использовать библиотеку NgRx
 - Использовать библиотеку NGXS
-
 <br/>
 
 ## <a name="ngrx"></a>Что такое NgRx?
@@ -52,7 +51,6 @@ export class CounterEffects {
   constructor(private actions$: Actions) {}
 }
  ```
-
 <br/>
 
 ## <a name="ngxs"></a>Что такое NGXS?
@@ -126,5 +124,4 @@ export class ItemManagerComponent {
   }
 }
  ```
-
 <br/>
