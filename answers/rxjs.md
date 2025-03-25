@@ -152,6 +152,46 @@ const subject = new BehaviorSubject<number>(0); // начальное значе
 ```
 <br/>
 
+## <a name="replay_behavior"></a>Чем ReplaySubject отличается от BehaviorSubject?
+
+Оба они относятся к т.н. "тёплым" наблюдаемым объектам (начинаются как "горячие", но новые подписчики могут получать последние или определённые начальные значения, даже если они подписались позже.)
+
+ReplaySubje в отличие от BehaviorSubject:
+
+- может хранить более одного значения, в зависимости от настроек
+- поддерживает разграничение по времени: можно указать, как долго значения хранятся (в миллисекундах).
+
+```typescript
+const replaySubject = new ReplaySubject<number>(2); // храним два последних значения
+replaySubject.next(1);
+replaySubject.next(2);
+replaySubject.next(3);
+
+replaySubject.subscribe(value => console.log(`ReplaySubscriber: ${value}`));
+// Выдаст 2, 3, потому что они были последними двумя значениями перед подпиской.
+```
+
+Пример использования ReplaySubject с временным окном:
+```typescript
+import { ReplaySubject } from 'rxjs';
+
+// Создаем ReplaySubject, который хранит только последние значения за последние 500 миллисекунд.
+const replaySubject = new ReplaySubject<number>(Infinity, 500);
+
+replaySubject.next(1);
+setTimeout(() => replaySubject.next(2), 100); // Через 100 мс добавляем 2
+setTimeout(() => replaySubject.next(3), 200); // Через 200 мс добавляем 3
+setTimeout(() => replaySubject.next(4), 700); // Через 700 мс добавляем 4
+
+setTimeout(() => {
+  // Подписываемся через 1000 мс после начала
+  replaySubject.subscribe(value => console.log(`Subscriber: ${value}`));
+  // На момент подписки, значения 1 и 2 устарели (пройдут более 500 мс с момента их эмиссии),
+  // так что мы видим только 3 и 4 после подписки.
+}, 1000);
+```
+<br/>
+
 ## <a name="concat"></a>Как реализовать несколько разных последовательных HTTP-запросов?
 
 Можно воспользоваться оператором RxJS, таким как concatMap. Каждый последующий запрос ждёт завершения предыдущего перед своим началом.

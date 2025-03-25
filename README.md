@@ -46,6 +46,7 @@
     - <a href="answers/rxjs.md#cold_to_hot">Как преобразовать холодный наблюдаемый объект в горячий?</a> <br/>
     - <a href="answers/rxjs.md#observable_subject">В чем разница между Observable и Subject?</a> <br/>
     - <a href="answers/rxjs.md#behaviorsubject">Что такое BehaviorSubject и в чем его основное отличие от Subject?</a> <br/>
+    - <a href="answers/rxjs.md#replay_behavior">Чем ReplaySubject отличается от BehaviorSubject?</a> <br/>
     - <a href="answers/rxjs.md#concat">Как реализовать несколько разных последовательных HTTP-запросов?</a> <br/>
     - <a href="answers/rxjs.md#usecase"><b>Как реализовать следующий сценарий?</b></a> <br/>
 </details>
